@@ -1,0 +1,4 @@
+.idea
+release
+terraform-provider-stateful*
+.terraform/
