@@ -189,7 +189,7 @@ $ make test
 In order to build plugin for the current platform use [GNU]make:
 ```bash
 $ make build
-  go build -o terraform-provider-yaml.0.0
+  go build -o terraform-provider-yaml_v2.0.0
 
 ```
 
