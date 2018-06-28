@@ -12,7 +12,8 @@ Please note that JSON is subset of YAML and therefore this data source can be us
 ## Data Sources
 
 This plugin defines following data sources:
-* `yaml`
+* `yaml_map_of_strings`
+* `yaml_list_of_strings`
 
 ## Reference
 
@@ -21,14 +22,14 @@ This plugin defines following data sources:
 The following arguments are supported:
 
 * `input` - (Required) A string that will be parsed. Should be a valid YAML, YAML flow or JSON.
-* `flatten` - (Optional) A string that should be used as a separator in order to flatten nested maps. If set to a
-non-empty value nested maps going to be flattened.  
+* `flatten` - (Optional) [**only** `yaml_map_of_strings`] A string that should be used as a separator in order to flatten
+nested maps. If set to a non-empty value nested maps going to be flattened.  
 
 ### Attributes
 
 The following attribute is exported:
 
-* `output` - Map with keys and values as strings. 
+* `output` - Map with keys and values as strings for `yaml_map_of_strings` and list of strings for `yaml_list_of_strings`.
 
 ## Limitations
 
@@ -61,16 +62,18 @@ or it can be [installed system-wide](https://www.terraform.io/docs/configuration
 ```hcl
 locals {input="input.yaml"}
 
-data "yaml" "normal" { input = "${file(local.input)}"             }
-data "yaml" "flat"   { input = "${file(local.input)}" flatten="/" }
+data "yaml_map_of_strings"  "normal" { input = "${file(local.input)}"                              }
+data "yaml_map_of_strings"  "flat"   { input = "${file(local.input)}" flatten="/"                  }
+data "yaml_list_of_strings" "list"   { input = "${data.yaml_map_of_strings.normal.output["list"]}" }
 
-output "normal" { value = "${data.yaml.normal.output}" }
-output "flat"   { value = "${data.yaml.flat.output}"   }
+output "normal" { value = "${data.yaml_map_of_strings.normal.output}" }
+output "flat"   { value = "${data.yaml_map_of_strings.flat.output}"   }
+output "list"   { value = "${data.yaml_list_of_strings.list.output}"  }
 ```
 
 ### Download
 ```bash
-$ wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v1.0.0/terraform-provider-yaml_v1.0.0-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
+$ wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v2.0.0/terraform-provider-yaml_v2.0.0-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
 $ chmod +x ./terraform-provider-yaml*
 ```
 
@@ -78,11 +81,21 @@ $ chmod +x ./terraform-provider-yaml*
 ```bash
 $ ls -1
   main.tf
-  terraform-provider-yaml_v1.0.0-linux-amd64
+  terraform-provider-yaml_v2.0.0-linux-amd64
 
 $ terraform init
   
   Initializing provider plugins...
+  
+  The following providers do not have any version constraints in configuration,
+  so the latest version was installed.
+  
+  To prevent automatic upgrades to new major versions that may contain breaking
+  changes, it is recommended to add version = "..." constraints to the
+  corresponding provider blocks in configuration, with the constraint strings
+  suggested below.
+  
+  * provider.yaml: version = "~> 2.0"
   
   Terraform has been successfully initialized!
   
@@ -108,8 +121,9 @@ list:
 EOF
 
 $ terraform apply
-  data.yaml.normal: Refreshing state...
-  data.yaml.flat: Refreshing state...
+  data.yaml_map_of_strings.normal: Refreshing state...
+  data.yaml_map_of_strings.flat: Refreshing state...
+  data.yaml_list_of_strings.list: Refreshing state...
   
   Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
   
@@ -119,6 +133,10 @@ $ terraform apply
     a/b/c = foobar
     list = [foo, bar]
   }
+  list = [
+      foo,
+      bar
+  ]
   normal = {
     a = {b: {c: foobar}}
     list = [foo, bar]
@@ -185,8 +203,8 @@ executed against a configuration in the same directory.
 In order to prepare provider binaries for all platforms:
 ```bash
 $ make release
-  GOOS=darwin GOARCH=amd64 go build -o './release/terraform-provider-yaml_v1.0.0-darwin-amd64'
-  GOOS=linux GOARCH=amd64 go build -o './release/terraform-provider-yaml_v1.0.0-linux-amd64'
+  GOOS=darwin GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.0-darwin-amd64'
+  GOOS=linux GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.0-linux-amd64'
 ```
 
 ### Versioning

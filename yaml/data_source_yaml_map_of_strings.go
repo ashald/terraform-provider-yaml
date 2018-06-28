@@ -1,22 +1,15 @@
 package yaml
 
 import (
-	"crypto/sha256"
 	"fmt"
 	yml "github.com/ashald/yaml"
 	"github.com/hashicorp/terraform/helper/schema"
 	"reflect"
-	"strings"
 )
 
-const FieldInput = "input"
-const FieldFlatten = "flatten"
-
-const FieldOutput = "output"
-
-func dataSourceYAML() *schema.Resource {
+func dataSourceMap() *schema.Resource {
 	return &schema.Resource{
-		Read: readYaml,
+		Read: readYamlMap,
 
 		Schema: map[string]*schema.Schema{
 			// "Inputs"
@@ -37,12 +30,14 @@ func dataSourceYAML() *schema.Resource {
 	}
 }
 
-func readYaml(d *schema.ResourceData, m interface{}) error {
+func readYamlMap(d *schema.ResourceData, m interface{}) error {
 	input := d.Get(FieldInput).(string)
 	separatorRaw, shouldFlatten := d.GetOk(FieldFlatten)
 	separator := separatorRaw.(string)
 
-	parsed, err := deserializeYaml(input)
+	parsed := make(map[string]interface{})
+
+	err := yml.Unmarshal([]byte(input), &parsed)
 	if err != nil {
 		return err
 	}
@@ -70,35 +65,6 @@ func readYaml(d *schema.ResourceData, m interface{}) error {
 	d.SetId(getSHA256(input))
 
 	return nil
-}
-
-func deserializeYaml(input string) (map[string]interface{}, error) {
-	parsed := make(map[string]interface{})
-
-	err := yml.Unmarshal([]byte(input), &parsed)
-	if err != nil {
-		return nil, err
-	}
-	return parsed, nil
-}
-
-func serializeToFlowStyleYaml(input interface{}) (string, error) {
-	var builder strings.Builder
-	encoder := yml.NewEncoder(&builder)
-	encoder.SetFlowStyle(true)
-	encoder.SetLineWidth(-1)
-
-	err := encoder.Encode(input)
-	if err != nil {
-		return "", err
-	}
-
-	err = encoder.Close()
-	if err != nil {
-		return "", err
-	}
-
-	return strings.TrimSpace(builder.String()), nil
 }
 
 func flattenValue(result map[string]string, v reflect.Value, prefix string, separator string) error {
@@ -132,10 +98,4 @@ func flattenMap(result map[string]string, v reflect.Value, prefix string, separa
 		newPrefix := fmt.Sprintf("%s%s%s", prefix, separator, k.String())
 		flattenValue(result, v.MapIndex(k), newPrefix, separator)
 	}
-}
-
-func getSHA256(src string) string {
-	h := sha256.New()
-	h.Write([]byte(src))
-	return fmt.Sprintf("%x", h.Sum(nil))
 }

@@ -9,10 +9,10 @@ import (
 	"reflect"
 )
 
-const inputNoFlatten = `
-output "result" { value="${data.yaml.doc.output}" }
+const mapInputNoFlatten = `
+output "result" { value="${data.yaml_map_of_strings.doc.output}" }
 
-data "yaml" "doc" {
+data "yaml_map_of_strings" "doc" {
       input = <<EOF
 a:
   b:
@@ -24,10 +24,10 @@ EOF
 }
 `
 
-const inputEmptyFlatten = `
-output "result" { value="${data.yaml.doc.output}" }
+const mapInputEmptyFlatten = `
+output "result" { value="${data.yaml_map_of_strings.doc.output}" }
 
-data "yaml" "doc" {
+data "yaml_map_of_strings" "doc" {
       flatten = ""
       input = <<EOF
 a:
@@ -40,10 +40,10 @@ EOF
 }
 `
 
-const inputFlattenBySlash = `
-output "result" { value="${data.yaml.doc.output}" }
+const mapInputFlattenBySlash = `
+output "result" { value="${data.yaml_map_of_strings.doc.output}" }
 
-data "yaml" "doc" {
+data "yaml_map_of_strings" "doc" {
       flatten = "/"
       input = <<EOF
 a:
@@ -56,37 +56,57 @@ EOF
 }
 `
 
-func TestYamlDataSource(t *testing.T) {
+const mapInputKeyWithMultiLineString = `
+output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+
+data "yaml_map_of_strings" "doc" {
+      input = <<EOF
+foo: |
+  foo
+  bar
+  baz
+EOF
+}
+`
+
+func TestMapOfStringsDataSource(t *testing.T) {
 	flattenedOutput := map[string]string{"a/b/c": "foobar", "list": "[foo, bar]"}
 	nonFlattenedOutput := map[string]string{"a": "{b: {c: foobar}}", "list": "[foo, bar]"}
+	keyMyltiLineVal := map[string]string{"foo": "foo\nbar\nbaz\n"}
 
 	resource.Test(t, resource.TestCase{
 		IsUnitTest: true,
 		Providers:  testProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: inputNoFlatten,
+				Config: mapInputNoFlatten,
 				Check: resource.ComposeTestCheckFunc(
-					testOutputEquals("result", nonFlattenedOutput),
+					testMapOutputEquals("result", nonFlattenedOutput),
 				),
 			},
 			{
-				Config: inputEmptyFlatten,
+				Config: mapInputEmptyFlatten,
 				Check: resource.ComposeTestCheckFunc(
-					testOutputEquals("result", nonFlattenedOutput),
+					testMapOutputEquals("result", nonFlattenedOutput),
 				),
 			},
 			{
-				Config: inputFlattenBySlash,
+				Config: mapInputFlattenBySlash,
 				Check: resource.ComposeTestCheckFunc(
-					testOutputEquals("result", flattenedOutput),
+					testMapOutputEquals("result", flattenedOutput),
+				),
+			},
+			{
+				Config: mapInputKeyWithMultiLineString,
+				Check: resource.ComposeTestCheckFunc(
+					testMapOutputEquals("result", keyMyltiLineVal),
 				),
 			},
 		},
 	})
 }
 
-func testOutputEquals(name string, expected map[string]string) resource.TestCheckFunc {
+func testMapOutputEquals(name string, expected map[string]string) resource.TestCheckFunc {
 	return func(state *terraform.State) error {
 		output := state.RootModule().Outputs[name]
 

@@ -8,7 +8,8 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		DataSourcesMap: map[string]*schema.Resource{
-			"yaml": dataSourceYAML(),
+			"yaml_map_of_strings":  dataSourceMap(),
+			"yaml_list_of_strings": dataSourceList(),
 		},
 	}
 }
