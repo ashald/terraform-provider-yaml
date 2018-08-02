@@ -1,6 +1,6 @@
 NAME := terraform-provider-yaml
-PLATFORMS := darwin/amd64 linux/amd64
-VERSION := $(shell git describe &>/dev/null && echo "_$$(git describe)")
+PLATFORMS ?= darwin/amd64 linux/amd64 windows/amd64
+VERSION ?= $(shell git describe &>/dev/null && echo "_$$(git describe)")
 
 temp = $(subst /, ,$@)
 os = $(word 1, $(temp))
