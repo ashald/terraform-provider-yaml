@@ -170,6 +170,14 @@ $ cd ${GOPATH}/src/github.com/ashald/terraform-provider-yaml
 $ git clone git@github.com:ashald/terraform-provider-yaml.git .
 ```
 
+### Dependencies
+
+This project uses `govendor` to manage its dependencies. When adding a dependency on a new package it should be fetched
+with:
+```bash
+$ govendor fetch +o
+```
+
 ### Test
 
 ```bash
