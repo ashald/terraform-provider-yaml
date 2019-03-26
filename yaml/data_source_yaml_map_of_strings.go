@@ -71,6 +71,15 @@ func flattenValue(result map[string]string, v reflect.Value, prefix string, sepa
 	if v.Kind() == reflect.Interface {
 		v = v.Elem()
 	}
+	// For empty values we don't have anything to flatten and bail out early to
+	// prevent panic when calling v.Interface(). We still create a value in result
+	// map, but set its value to nil leaving a question how to represent null
+	// value to Terraform. From what we see, currently Terraform represents it
+	// in the same way as the empty string.
+	if v.Kind() == reflect.Invalid {
+		result[prefix] = ""
+		return nil
+	}
 
 	switch v.Kind() {
 	case reflect.Map:

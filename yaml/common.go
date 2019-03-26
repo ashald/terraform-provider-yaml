@@ -24,6 +24,10 @@ func serializeToFlowStyleYaml(input interface{}) (string, error) {
 		return input.(string), nil
 	}
 
+	if inputRef.Kind() == reflect.Invalid {
+		return "", nil
+	}
+
 	var builder strings.Builder
 	encoder := yml.NewEncoder(&builder)
 	encoder.SetFlowStyle(true)
