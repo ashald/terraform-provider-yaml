@@ -1,6 +1,12 @@
 # Change Log
 
-## 2.0 - 2018-06-28
+## 2.0.1 - 2019-04-12
+
+### Fixed
+
+- Crash on empty values in `yaml_map_of_strings` - convert them to empty strings instead
+
+## 2.0.0 - 2018-06-28
 
 ### Added
 
@@ -11,7 +17,7 @@
 - `yaml` renamed to `yaml_map_of_strings`
 
 
-## 1.0 - 2018-06-20
+## 1.0.0 - 2018-06-20
 
 ### Added
 
