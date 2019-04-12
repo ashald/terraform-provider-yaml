@@ -69,10 +69,21 @@ EOF
 }
 `
 
+const mapInputNil = `
+output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+
+data "yaml_map_of_strings" "doc" {
+      input = <<EOF
+empty_key: 
+EOF
+}
+`
+
 func TestMapOfStringsDataSource(t *testing.T) {
 	flattenedOutput := map[string]string{"a/b/c": "foobar", "list": "[foo, bar]"}
 	nonFlattenedOutput := map[string]string{"a": "{b: {c: foobar}}", "list": "[foo, bar]"}
 	keyMyltiLineVal := map[string]string{"foo": "foo\nbar\nbaz\n"}
+	inputNilOutput := map[string]string{"empty_key": ""}
 
 	resource.Test(t, resource.TestCase{
 		IsUnitTest: true,
@@ -100,6 +111,12 @@ func TestMapOfStringsDataSource(t *testing.T) {
 				Config: mapInputKeyWithMultiLineString,
 				Check: resource.ComposeTestCheckFunc(
 					testMapOutputEquals("result", keyMyltiLineVal),
+				),
+			},
+			{
+				Config: mapInputNil,
+				Check: resource.ComposeTestCheckFunc(
+					testMapOutputEquals("result", inputNilOutput),
 				),
 			},
 		},
