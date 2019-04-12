@@ -39,10 +39,12 @@
 			"revisionTime": "2018-08-24T02:57:28Z"
 		},
 		{
-			"checksumSHA1": "Zcul5/CazJKMPwCOToF6WewE95I=",
+			"checksumSHA1": "oq5ifpIxfWDCmhrjhtryA40lgdo=",
 			"path": "github.com/ashald/yaml",
-			"revision": "bec87e4332aede01fb63a4ab299d8af28480cd96",
-			"revisionTime": "2014-09-22T21:32:25Z"
+			"revision": "6dcde64348119a0d1c2dd2852308e253f1ef5baf",
+			"revisionTime": "2019-04-12T20:19:01Z",
+			"version": "v2",
+			"versionExact": "v2.2.1"
 		},
 		{
 			"checksumSHA1": "e9SkwNvazydaaalJnZgoS80m5LU=",
