@@ -30,7 +30,7 @@ func dataSourceList() *schema.Resource {
 func readYamlList(d *schema.ResourceData, m interface{}) error {
 	input := d.Get(FieldInput).(string)
 
-	var parsed []string
+	var parsed []interface{}
 
 	err := yml.Unmarshal([]byte(input), &parsed)
 	if err != nil {

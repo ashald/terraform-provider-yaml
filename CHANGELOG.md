@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.2 - 2019-04-20
+
+### Fixed
+
+- Error on non-string values in `yaml_list_of_strings` - serialize them to flow-style YAML
+
 ## 2.0.1 - 2019-04-12
 
 ### Fixed

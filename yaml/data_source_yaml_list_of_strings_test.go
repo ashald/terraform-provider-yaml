@@ -9,7 +9,7 @@ import (
 	"reflect"
 )
 
-const listInput = `
+const inputListOfStrings = `
 output "result" { value="${data.yaml_list_of_strings.doc.output}" }
 
 data "yaml_list_of_strings" "doc" {
@@ -20,17 +20,35 @@ EOF
 }
 `
 
+const inputListOfMaps = `
+output "result" { value="${data.yaml_list_of_strings.doc.output}" }
+
+data "yaml_list_of_strings" "doc" {
+      input = <<EOF
+ - foo: 123
+ - bar: 456
+EOF
+}
+`
+
 func TestListOfStringsDataSource(t *testing.T) {
-	expected := []string{"foo", "bar"}
+	expectedListOfStrings := []string{"foo", "bar"}
+	expectedListOfMaps 	  := []string{"{foo: 123}", "{bar: 456}"}
 
 	resource.Test(t, resource.TestCase{
 		IsUnitTest: true,
 		Providers:  testProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: listInput,
+				Config: inputListOfStrings,
 				Check: resource.ComposeTestCheckFunc(
-					testListOutputEquals("result", expected),
+					testListOutputEquals("result", expectedListOfStrings),
+				),
+			},
+			{
+				Config: inputListOfMaps,
+				Check: resource.ComposeTestCheckFunc(
+					testListOutputEquals("result", expectedListOfMaps),
 				),
 			},
 		},
