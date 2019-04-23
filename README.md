@@ -73,7 +73,7 @@ output "list"   { value = "${data.yaml_list_of_strings.list.output}"  }
 
 ### Download
 ```bash
-$ wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v2.0.0/terraform-provider-yaml_v2.0.0-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
+$ wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v2.0.2/terraform-provider-yaml_v2.0.2-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
 $ chmod +x ./terraform-provider-yaml*
 ```
 
@@ -81,7 +81,7 @@ $ chmod +x ./terraform-provider-yaml*
 ```bash
 $ ls -1
   main.tf
-  terraform-provider-yaml_v2.0.0-linux-amd64
+  terraform-provider-yaml_v2.0.2-linux-amd64
 
 $ terraform init
   
@@ -197,7 +197,7 @@ $ make test
 In order to build plugin for the current platform use [GNU]make:
 ```bash
 $ make build
-  go build -o terraform-provider-yaml_v2.0.0
+  go build -o terraform-provider-yaml_v2.0.2
 
 ```
 
@@ -211,8 +211,9 @@ executed against a configuration in the same directory.
 In order to prepare provider binaries for all platforms:
 ```bash
 $ make release
-  GOOS=darwin GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.0-darwin-amd64'
-  GOOS=linux GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.0-linux-amd64'
+  GOOS=darwin GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.2-darwin-amd64'
+  GOOS=linux GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.2-linux-amd64'
+  GOOS=windows GOARCH=amd64 go build -o './release/terraform-provider-yaml_v2.0.2-windows-amd64'
 ```
 
 ### Versioning
