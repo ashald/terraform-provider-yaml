@@ -3,7 +3,7 @@ package yaml
 import (
 	"crypto/sha256"
 	"fmt"
-	yml "github.com/ashald/yaml"
+	yml "gopkg.in/ashald/yaml.v2"
 	"reflect"
 	"strings"
 )

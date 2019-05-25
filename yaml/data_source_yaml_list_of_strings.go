@@ -1,8 +1,8 @@
 package yaml
 
 import (
-	yml "github.com/ashald/yaml"
 	"github.com/hashicorp/terraform/helper/schema"
+	yml "gopkg.in/ashald/yaml.v2"
 )
 
 func dataSourceList() *schema.Resource {
@@ -47,7 +47,11 @@ func readYamlList(d *schema.ResourceData, m interface{}) error {
 		result = append(result, serialized)
 	}
 
-	d.Set(FieldOutput, result)
+	err = d.Set(FieldOutput, result)
+	if err != nil {
+		return err
+	}
+
 	d.SetId(getSHA256(input))
 
 	return nil

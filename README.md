@@ -9,6 +9,8 @@ Nested maps can be optionally flattened with a given separator.
 
 Please note that JSON is subset of YAML and therefore this data source can be used to parse arbitrary JSON as well.
 
+**Works with Terraform 0.12**
+
 ## Data Sources
 
 This plugin defines following data sources:

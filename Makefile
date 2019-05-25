@@ -1,6 +1,6 @@
 NAME := terraform-provider-yaml
 PLATFORMS ?= darwin/amd64 linux/amd64 windows/amd64
-VERSION ?= $(shell git describe &>/dev/null && echo "_$$(git describe)")
+VERSION = $(shell git describe 1>/dev/null 2>/dev/null && echo "_$$(git describe)")
 
 temp = $(subst /, ,$@)
 os = $(word 1, $(temp))
@@ -9,24 +9,24 @@ arch = $(word 2, $(temp))
 BASE := $(NAME)$(VERSION)
 RELEASE_DIR := ./release
 
-all: clean format test release
+all: clean test release
 
 clean:
 	rm -rf $(RELEASE_DIR) ./$(BASE)*
 
 format:
-	go fmt ./...
+	GOPROXY="off" GOFLAGS="-mod=vendor" go fmt ./...
 
 test:
-	go test -v ./...
-	go vet ./...
+	GOPROXY="off" GOFLAGS="-mod=vendor" go test -v ./...
+	GOPROXY="off" GOFLAGS="-mod=vendor" go vet ./...
 
 build:
-	go build -o $(BASE)
+	GOPROXY="off" GOFLAGS="-mod=vendor" go build -o $(BASE)
 
 release: $(PLATFORMS)
 
 $(PLATFORMS):
-	GOOS=$(os) GOARCH=$(arch) go build -o '$(RELEASE_DIR)/$(BASE)-$(os)-$(arch)'
+	GOPROXY="off" GOFLAGS="-mod=vendor" GOOS=$(os) GOARCH=$(arch) go build -o '$(RELEASE_DIR)/$(BASE)-$(os)-$(arch)'
 
 .PHONY: $(PLATFORMS) release build test fmt clean all

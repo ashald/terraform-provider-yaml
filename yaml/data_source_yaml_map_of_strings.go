@@ -2,8 +2,8 @@ package yaml
 
 import (
 	"fmt"
-	yml "github.com/ashald/yaml"
 	"github.com/hashicorp/terraform/helper/schema"
+	yml "gopkg.in/ashald/yaml.v2"
 	"reflect"
 )
 

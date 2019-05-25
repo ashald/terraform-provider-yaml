@@ -33,7 +33,7 @@ EOF
 
 func TestListOfStringsDataSource(t *testing.T) {
 	expectedListOfStrings := []string{"foo", "bar"}
-	expectedListOfMaps 	  := []string{"{foo: 123}", "{bar: 456}"}
+	expectedListOfMaps := []string{"{foo: 123}", "{bar: 456}"}
 
 	resource.Test(t, resource.TestCase{
 		IsUnitTest: true,

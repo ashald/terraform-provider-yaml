@@ -244,7 +244,7 @@ func MaxRecvMsgSize(m int) ServerOption {
 }
 
 // MaxSendMsgSize returns a ServerOption to set the max message size in bytes the server can send.
-// If this is not set, gRPC uses the default `math.MaxInt32`.
+// If this is not set, gRPC uses the default 4MB.
 func MaxSendMsgSize(m int) ServerOption {
 	return func(o *options) {
 		o.maxSendMessageSize = m
@@ -748,7 +748,7 @@ func (s *Server) traceInfo(st transport.ServerTransport, stream *transport.Strea
 	trInfo.firstLine.remoteAddr = st.RemoteAddr()
 
 	if dl, ok := stream.Context().Deadline(); ok {
-		trInfo.firstLine.deadline = time.Until(dl)
+		trInfo.firstLine.deadline = dl.Sub(time.Now())
 	}
 	return trInfo
 }
@@ -874,7 +874,7 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 			PeerAddr:   nil,
 		}
 		if deadline, ok := ctx.Deadline(); ok {
-			logEntry.Timeout = time.Until(deadline)
+			logEntry.Timeout = deadline.Sub(time.Now())
 			if logEntry.Timeout < 0 {
 				logEntry.Timeout = 0
 			}
@@ -1106,7 +1106,7 @@ func (s *Server) processStreamingRPC(t transport.ServerTransport, stream *transp
 			PeerAddr:   nil,
 		}
 		if deadline, ok := ctx.Deadline(); ok {
-			logEntry.Timeout = time.Until(deadline)
+			logEntry.Timeout = deadline.Sub(time.Now())
 			if logEntry.Timeout < 0 {
 				logEntry.Timeout = 0
 			}

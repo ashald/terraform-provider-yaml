@@ -164,7 +164,7 @@ func WithDefaultCallOptions(cos ...CallOption) DialOption {
 // WithCodec returns a DialOption which sets a codec for message marshaling and
 // unmarshaling.
 //
-// Deprecated: use WithDefaultCallOptions(ForceCodec(_)) instead.
+// Deprecated: use WithDefaultCallOptions(CallCustomCodec(c)) instead.
 func WithCodec(c Codec) DialOption {
 	return WithDefaultCallOptions(CallCustomCodec(c))
 }
@@ -348,7 +348,7 @@ func WithDialer(f func(string, time.Duration) (net.Conn, error)) DialOption {
 	return withContextDialer(
 		func(ctx context.Context, addr string) (net.Conn, error) {
 			if deadline, ok := ctx.Deadline(); ok {
-				return f(addr, time.Until(deadline))
+				return f(addr, deadline.Sub(time.Now()))
 			}
 			return f(addr, 0)
 		})
