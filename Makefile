@@ -12,7 +12,7 @@ RELEASE_DIR := ./release
 all: clean test release
 
 clean:
-	rm -rf $(RELEASE_DIR) ./$(BASE)*
+	rm -rf $(RELEASE_DIR) ./$(NAME)*
 
 format:
 	GOPROXY="off" GOFLAGS="-mod=vendor" go fmt ./...

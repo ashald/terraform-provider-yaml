@@ -388,8 +388,8 @@ google.golang.org/grpc v1.16.0/go.mod h1:0JHn/cJsOMiMfNA9+DeHDlAU7KAAB5GDlYFpa9M
 google.golang.org/grpc v1.17.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=
 google.golang.org/grpc v1.18.0 h1:IZl7mfBGfbhYx2p2rKRtYgDFw6SBz+kclmxYrCksPPA=
 google.golang.org/grpc v1.18.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=
-gopkg.in/ashald/yaml.v2 v2.3.0 h1:apLJpCtq2VF4tUp5etEfLcX5yEnG4wcvQj0T7rhizHE=
-gopkg.in/ashald/yaml.v2 v2.3.0/go.mod h1:fQwoBaQPa9AWReFNiFVZcc8DkA0vXL32pTIqYxW4GXI=
+gopkg.in/ashald/yaml.v2 v2.4.0 h1:XbYsFlxd9MTAiijiFMD3nJCgpuwRsJr4HxbypXv8S4M=
+gopkg.in/ashald/yaml.v2 v2.4.0/go.mod h1:JHoEkmPYcWfhcckw/JhwSPq7YDNcviNwLI/Sk5APWKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 h1:qIbj1fsPNlZgppZ+VLlY7N33q108Sa+fhmuc+sWQYwY=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=

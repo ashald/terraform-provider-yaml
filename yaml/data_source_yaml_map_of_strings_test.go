@@ -82,7 +82,7 @@ EOF
 func TestMapOfStringsDataSource(t *testing.T) {
 	flattenedOutput := map[string]string{"a/b/c": "foobar", "list": "[foo, bar]"}
 	nonFlattenedOutput := map[string]string{"a": "{b: {c: foobar}}", "list": "[foo, bar]"}
-	keyMyltiLineVal := map[string]string{"foo": "foo\nbar\nbaz\n"}
+	keyMultipleLineVal := map[string]string{"foo": "foo\nbar\nbaz\n"}
 	inputNilOutput := map[string]string{"empty_key": ""}
 
 	resource.Test(t, resource.TestCase{
@@ -110,7 +110,7 @@ func TestMapOfStringsDataSource(t *testing.T) {
 			{
 				Config: mapInputKeyWithMultiLineString,
 				Check: resource.ComposeTestCheckFunc(
-					testMapOutputEquals("result", keyMyltiLineVal),
+					testMapOutputEquals("result", keyMultipleLineVal),
 				),
 			},
 			{

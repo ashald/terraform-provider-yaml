@@ -10,7 +10,6 @@ import (
 
 const FieldInput = "input"
 const FieldFlatten = "flatten"
-
 const FieldOutput = "output"
 
 func serializeToFlowStyleYaml(input interface{}) (string, error) {

@@ -1,5 +1,11 @@
 # Change Log
 
+## Unreleased
+
+### Added
+
+- A new data source to convert `yaml` to `json` - `yaml_to_json` - that is meant to be used with `jsondecode` in Terraform 0.12
+
 ## 2.0.2 - 2019-04-20
 
 ### Fixed

@@ -10,6 +10,7 @@ func Provider() terraform.ResourceProvider {
 		DataSourcesMap: map[string]*schema.Resource{
 			"yaml_map_of_strings":  dataSourceMap(),
 			"yaml_list_of_strings": dataSourceList(),
+			"yaml_to_json":         dataSourceYamlToJson(),
 		},
 	}
 }
