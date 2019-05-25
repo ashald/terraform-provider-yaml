@@ -25,7 +25,7 @@ EOF
 `
 
 const mapInputEmptyFlatten = `
-output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+output "result" { value=data.yaml_map_of_strings.doc.output }
 
 data "yaml_map_of_strings" "doc" {
       flatten = ""
@@ -41,7 +41,7 @@ EOF
 `
 
 const mapInputFlattenBySlash = `
-output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+output "result" { value=data.yaml_map_of_strings.doc.output }
 
 data "yaml_map_of_strings" "doc" {
       flatten = "/"
@@ -57,7 +57,7 @@ EOF
 `
 
 const mapInputKeyWithMultiLineString = `
-output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+output "result" { value=data.yaml_map_of_strings.doc.output }
 
 data "yaml_map_of_strings" "doc" {
       input = <<EOF
@@ -70,7 +70,7 @@ EOF
 `
 
 const mapInputNil = `
-output "result" { value="${data.yaml_map_of_strings.doc.output}" }
+output "result" { value=data.yaml_map_of_strings.doc.output }
 
 data "yaml_map_of_strings" "doc" {
       input = <<EOF

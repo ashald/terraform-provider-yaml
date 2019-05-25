@@ -10,7 +10,7 @@ import (
 )
 
 const inputListOfStrings = `
-output "result" { value="${data.yaml_list_of_strings.doc.output}" }
+output "result" { value=data.yaml_list_of_strings.doc.output }
 
 data "yaml_list_of_strings" "doc" {
       input = <<EOF
@@ -21,7 +21,7 @@ EOF
 `
 
 const inputListOfMaps = `
-output "result" { value="${data.yaml_list_of_strings.doc.output}" }
+output "result" { value=data.yaml_list_of_strings.doc.output }
 
 data "yaml_list_of_strings" "doc" {
       input = <<EOF

@@ -6,8 +6,6 @@ import (
 )
 
 const yamlToJsonInputList = `
-output "result" { value=jsondecode(data.yaml_to_json.doc.output) }
-
 data "yaml_to_json" "doc" {
       input = <<EOF
 - foo
@@ -18,8 +16,6 @@ EOF
 `
 
 const yamlToJsonInputMap = `
-output "result" { value=jsondecode(data.yaml_to_json.doc.output) }
-
 data "yaml_to_json" "doc" {
       input = <<EOF
 foo: 123
@@ -31,7 +27,7 @@ EOF
 
 func TestYamlToJsonDataSource(t *testing.T) {
 	expectedOutputList := `["foo","bar"]`
-	expectedOutputMap := `{"456":"bar","foo":123}`  // likely unstable, consider comparing after jesondecode
+	expectedOutputMap := `{"456":"bar","foo":123}` // likely unstable, consider comparing after jesondecode
 
 	resource.Test(t, resource.TestCase{
 		IsUnitTest: true,
