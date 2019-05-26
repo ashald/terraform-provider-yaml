@@ -12,13 +12,7 @@ This plugin uses Go modules available starting from Go `1.11` and therefore it *
 
 ## Source Code
 
-Source code can be retrieved either with `go get`
-
-```bash
-$ go get -u -d github.com/ashald/terraform-provider-yaml
-```
-
-or with `git`
+Source code can be retrieved with `git`
 ```bash
 $ git clone git@github.com:ashald/terraform-provider-yaml.git .
 ```
