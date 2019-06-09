@@ -34,7 +34,7 @@ or it can be [installed system-wide](https://www.terraform.io/docs/configuration
 
 The simplest way to get started is:
 ```bash
-wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v2.1.0/terraform-provider-yaml_v2.1.0-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64"
+wget "https://github.com/ashald/terraform-provider-yaml/releases/download/v2.1.0/terraform-provider-yaml_v2.1.0_$(uname -s | tr '[:upper:]' '[:lower:]')_amd64"
 chmod +x ./terraform-provider-yaml*
 ```
 
