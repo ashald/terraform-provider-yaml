@@ -43,7 +43,7 @@ EOF
 }
 
 output "result" {
-  value = data.yaml_list_of_strings.doc.output
+  value = "${data.yaml_list_of_strings.doc.output}"
 }
 ```
 
