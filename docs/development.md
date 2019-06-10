@@ -22,7 +22,7 @@ $ git clone git@github.com:ashald/terraform-provider-yaml.git .
 This project uses `go mod` to manage its dependencies and it's expected that all dependencies are vendored so that
 it's buildable without internet access. When adding/removing a dependency run following commands:
 ```bash
-$ go mod venndor
+$ go mod vendor
 $ go mod tidy
 ```
 
