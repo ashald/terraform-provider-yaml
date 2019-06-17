@@ -48,11 +48,11 @@ EOF
 }
 
 output "json" {
-  value = data.yaml_to_json.doc.output
+  value = "${data.yaml_to_json.doc.output}
 }
 
 output "result" {
-  value = jsondecode(data.yaml_to_json.doc.output)
+  value = "jsondecode${(data.yaml_to_json.doc.output)}"
 }
 
 ```
