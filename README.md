@@ -1,4 +1,8 @@
-# Terraform YAML Data Source
+# Terraform YAML Data Source (OBSOLETE)
+
+> As of [Terraform v0.12.2](https://github.com/hashicorp/terraform/releases/tag/v0.12.2) there is a native function `yamldecode` that obsoletes the plugin.
+> No further development and/or support is planned for this repo. Feel free to open an issue if you have development ideas related to YAML processing that
+> were not included into Terraform core.
 
 ## Overview
 
