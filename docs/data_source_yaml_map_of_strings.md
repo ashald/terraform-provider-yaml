@@ -47,20 +47,20 @@ EOF
 }
 
 data "yaml_map_of_strings" "normal" {
-  input = local.doc
+  input = "${local.doc}"
 }
 
 data "yaml_map_of_strings" "flat" {
-  input = local.doc
+  input = "${local.doc}"
   flatten =" /"
 }
 
 output "normal" {
-  value = data.yaml_map_of_strings.normal.output
+  value = "${data.yaml_map_of_strings.normal.output}"
 }
 
 output "flat" {
-  value = data.yaml_map_of_strings.flat.output
+  value = "${data.yaml_map_of_strings.flat.output}"
 }
 
 ```
